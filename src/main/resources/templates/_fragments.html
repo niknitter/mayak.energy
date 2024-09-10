@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+  <!-- row -->
+  <div layout:fragment="grid-row(minCols, maxCols)" th:remove="tag">
+    <div class="row text-center" th:classappend="'row-cols-' + ${minCols} + ' row-cols-md-' + ${maxCols}">
+      <div layout:fragment="row-content" th:remove="tag"></div>
+    </div>
+  </div>
+  <!-- card -->
+  <div layout:fragment="grid-card(title)" th:remove="tag">
+    <div class="col">
+      <div class="card mt-2">
+        <div class="card-header">
+          <h4 th:text="${title}">Card Title</h4>
+        </div>
+        <div class="card-body">
+          <div layout:fragment="card-body" th:remove="tag"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- card-row-simple -->
+  <div th:fragment="card-row-simple(paramName, paramValue)" th:remove="tag">
+    <div class="d-flex justify-content-between">
+      <h5 th:text="${paramName}"></h5>
+      <h5 th:text="${paramValue}"></h5>
+    </div>
+  </div>
+</body>
+</html>

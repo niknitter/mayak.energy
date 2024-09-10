@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/css/all.min.css}">
+
+<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE" th:text="Маяк.Энергия">Title</title>
+</head>
+
+<body>
+  <nav class="navbar bg-dark navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"> <span class="fas fa-bolt"></span> <span th:text="${applicationName}"></span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav me-auto">
+        </ul>
+        <ul class="navbar-nav d-flex">
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div layout:fragment="content" th:remove="tag">content</div>
+  </div>
+</body>
+
+</html>

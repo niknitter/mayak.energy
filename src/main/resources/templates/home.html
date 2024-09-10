@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" layout:decorate="~{layout}">
+
+<head>
+<meta charset="UTF-8">
+<title>Главная</title>
+</head>
+
+<body>
+  <div layout:fragment="content">
+    <div layout:replace="~{_fragments::grid-row(1, 4)}">
+      <div layout:fragment="row-content">
+        <div layout:replace="~{_fragments::grid-card('Зарядки')}">
+          <div layout:fragment="card-body">
+            <div th:replace="~{_fragments::card-row-simple('Всего', ${chargerAllCount})}"></div>
+            <div th:replace="~{_fragments::card-row-simple('Онлайн', ${chargerOnlineCount})}"></div>
+          </div>
+        </div>
+        <div layout:replace="~{_fragments::grid-card('Транзакции')}">
+          <div layout:fragment="card-body">
+            <div th:replace="~{_fragments::card-row-simple('Активные', ${ocppTransactionActiveCount})}"></div>
+          </div>
+        </div>
+        <div layout:replace="~{_fragments::grid-card('Токены')}">
+          <div layout:fragment="card-body">
+            <div th:replace="~{_fragments::card-row-simple('Всего', ${ocppTokenAllCount})}"></div>
+          </div>
+        </div>
+        <div layout:replace="~{_fragments::grid-card('Статусы коннекторов')}">
+          <div layout:fragment="card-body">
+            <th:block th:each="row:${connectorStatuses}">
+              <div th:replace="~{_fragments::card-row-simple(${row.group}, ${row.count})}"></div>
+            </th:block>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

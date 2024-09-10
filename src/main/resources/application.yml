@@ -1,0 +1,32 @@
+server:
+  port: ${SERVER_PORT:8080}
+logging:
+  level:
+    '[online.mayak.energy]': ${LOGGING_LEVEL:DEBUG}
+    '[org.hibernate.SQL]': INFO
+    '[org.springframework.web]': DEBUG
+    '[org.thymeleaf]': DEBUG'
+spring:
+  application:
+    name: Маяк.Энергия
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_POST:15432}/${DB_BASE:mayakenergy}
+    username: ${DB_USERNAME:mayakenergy}
+    password: ${DB_PASSWORD:mayakenergy}
+    hikari:
+      maximum-pool-size: ${DB_POOL_SIZE:10}
+  docker:
+    compose:
+      enabled: true
+      lifecycle-management: start-and-stop
+      profiles:
+        active: postgres-12
+  flyway:
+    enabled: true
+  jpa:
+    open-in-view: false
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
