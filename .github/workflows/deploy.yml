@@ -21,6 +21,14 @@ jobs:
         with:
           maven-version: 3.8.2
 
-
       - name: Build and package project
-        run: mvn -f pom.xml clean package        
+        run: mvn -f pom.xml clean package
+
+      - name: Rename the artifact
+        run: cp target/mayak.energy-0.0.1-SNAPSHOT.jar mayak.energy-${{ github.sha }}.jar
+
+      - name: Save the artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: mayak.energy
+          path: mayak.energy-${{ github.sha }}.jar
