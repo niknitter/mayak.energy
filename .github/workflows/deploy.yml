@@ -7,19 +7,20 @@ jobs:
   java-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: set up java 17
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup Java 17
         uses: actions/setup-java@v3
         with:
           java-version: 17
           distribution: 'adopt'
-      - name: Set up the Maven dependencies caching
-        uses: actions/cache@v3
+
+      - name: Set up Maven
+        uses: stCarolas/setup-maven@v5
         with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          maven-version: 3.8.2
+        run: mvn -V
 
-      - name: Install Maven dependencies
-        run: mvn instal
-
+      - name: Build and package project
+        run: mvn -f pom.xml clean package        
