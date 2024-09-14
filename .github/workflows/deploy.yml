@@ -20,4 +20,5 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Install Maven dependencies
-        run: mvn install
+        run: mvn instal
+
