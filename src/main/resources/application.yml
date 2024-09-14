@@ -3,9 +3,9 @@ server:
 logging:
   level:
     '[online.mayak.energy]': ${LOGGING_LEVEL:DEBUG}
+    '[org.springframework.web]': INFO
     '[org.hibernate.SQL]': INFO
-    '[org.springframework.web]': DEBUG
-    '[org.thymeleaf]': DEBUG'
+    '[org.thymeleaf]': INFO
 spring:
   application:
     name: Маяк.Энергия
@@ -30,3 +30,5 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     mode: HTML
+ocpp:
+  auto-register-new-charge-point: true

@@ -1,5 +1,6 @@
 package online.mayak.energy.ocpp16.ws;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import online.mayak.energy.config.OcppProperties;
 import online.mayak.energy.entity.Charger;
 import online.mayak.energy.service.ChargerService;
 
@@ -31,6 +33,7 @@ public class OcppHandshakeHandler implements HandshakeHandler {
 	// DefaultHandshakeHandler
 	private final HandshakeHandler delegate = new DefaultHandshakeHandler();
 
+	private final OcppProperties ocppProperties;
 	private final ChargerService chargerService;
 
 	/**
@@ -65,15 +68,26 @@ public class OcppHandshakeHandler implements HandshakeHandler {
 			response.setStatusCode(HttpStatus.BAD_REQUEST);
 			return false;
 		}
+		// Добавить в ответ поддерживаемые протоколы
+		response.getHeaders().set("Sec-WebSocket-Protocol", String.join(",", supportedProtocols));
 		// Извлечь идентификатор зарядной станции из URI
 		String chargePointId = OcppHelper.getChargePointIdFromURI(request.getURI());
 		// Проверить наличие зарядной станции в системе
 		Charger charger = chargerService.findByChargePointIdOrNull(chargePointId);
-		// Если такой зарядной станции нет, вернуть 404
+		// Если такой зарядной станции нет, то создать или вернуть 404 (см. ocppProperties)
 		if (charger == null) {
-			log.error("Charge Point {} is not registered", chargePointId);
-			response.setStatusCode(HttpStatus.NOT_FOUND);
-			return false;
+			log.warn("Charge Point {} is not registered", chargePointId);
+			if(ocppProperties.getAutoRegisterNewChargePoint()) {
+				charger = new Charger();
+				charger.setCreated(LocalDateTime.now());
+				charger.setChargePointId(chargePointId);
+				charger = chargerService.saveAndFlush(charger);
+				log.info("New Charge Point {} was registered automatically", chargePointId);
+			} else {
+				log.error("Charge Point {} is not registered", chargePointId);
+				response.setStatusCode(HttpStatus.NOT_FOUND);
+				return false;
+			}
 		}
 		// Авторизация
 		String requestAuthorization = requestHeaders.getFirst("authorization");
