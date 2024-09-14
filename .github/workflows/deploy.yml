@@ -20,7 +20,7 @@ jobs:
         uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.8.2
-        run: mvn -V
+
 
       - name: Build and package project
         run: mvn -f pom.xml clean package        
