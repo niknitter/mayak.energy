@@ -30,3 +30,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
+          tags: mayak.energy:latest
