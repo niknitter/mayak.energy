@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  java-build:
+  build_deploy:
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -24,35 +24,10 @@ jobs:
       - name: Build and package project
         run: mvn -f pom.xml clean package
 
-      - name: Rename the artifact
-        run: cp target/mayak.energy-0.0.1-SNAPSHOT.jar mayak.energy-${{ github.sha }}.jar
-
-      - name: Save the artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: mayak.energy
-          path: mayak.energy-${{ github.sha }}.jar
-
-  docker-build:
-    runs-on: self-hosted
-    needs: java-build
-    steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@master
-        with:
-          name: jar-file
-          path: mayak.energy-${{ github.sha }}.jar
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
+      - name: Build and push Docker image
+        id: push
+        uses: registry.devhub/mayak-energy:latest
         with:
           context: .
+          file: ./Dockerfile
           push: true
-          tags: mayak.energy:latest  
