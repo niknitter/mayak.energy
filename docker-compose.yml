@@ -13,7 +13,7 @@ services:
   app:
     image: registry.devhub.local/mayak.energy:latest
     environment:
-      DB_HOST: devhub
+      DB_HOST: devhub.local
       DB_PORT: 15432
       DB_BASE: mayakenergy
       DB_USERNAME: mayakenergy
