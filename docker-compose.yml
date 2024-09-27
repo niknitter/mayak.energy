@@ -16,6 +16,8 @@ services:
 
   app:
     image: registry.devhub.local/mayak.energy:latest
+    networks:
+      - nginx-proxy
     environment:
       DB_HOST: db
       DB_BASE: mayakenergy
