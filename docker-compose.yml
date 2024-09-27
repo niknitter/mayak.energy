@@ -2,7 +2,7 @@ services:
   pg:
     image: postgres:16
     ports:
-      - 15432:5432
+      - 5432:5432
     environment:
       POSTGRES_DB: mayakenergy
       POSTGRES_USER: mayakenergy
@@ -14,7 +14,7 @@ services:
     image: registry.devhub.local/mayak.energy:latest
     environment:
       DB_HOST: devhub.local
-      DB_PORT: 15432
+      DB_PORT: 5432
       DB_BASE: mayakenergy
       DB_USERNAME: mayakenergy
       DB_PASSWORD: mayakenergy
