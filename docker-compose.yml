@@ -24,6 +24,7 @@ services:
       - nginx-proxy
     environment:
       DB_HOST: db
+      DB_PORT: 5432
       DB_BASE: mayakenergy
       DB_USERNAME: mayakenergy
       DB_PASSWORD: mayakenergy
