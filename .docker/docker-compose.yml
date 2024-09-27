@@ -4,7 +4,7 @@ networks:
     external: true
 
 services:
-  db:
+  pg:
     image: postgres:16
     networks:
       - default
@@ -23,8 +23,8 @@ services:
       - default
       - nginx-proxy
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
+      DB_HOST: pg
+      DB_PORT: 54321
       DB_BASE: mayakenergy
       DB_USERNAME: mayakenergy
       DB_PASSWORD: mayakenergy
