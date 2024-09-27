@@ -9,7 +9,7 @@ services:
     networks:
       - default
     ports:
-      - 15432:5432
+      - 5432:5432
     environment:
       POSTGRES_DB: mayakenergy
       POSTGRES_USER: mayakenergy
