@@ -1,10 +1,13 @@
 networks:
+  default:
   nginx-proxy:
     external: true
 
 services:
   db:
     image: postgres:16
+    networks:
+      - default
     ports:
       - 15432:5432
     environment:
@@ -17,6 +20,7 @@ services:
   app:
     image: registry.devhub.local/mayak.energy:latest
     networks:
+      - default
       - nginx-proxy
     environment:
       DB_HOST: db
