@@ -31,3 +31,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: registry.devhub.local/mayak-energy:latest
+
+      – name: Run Docker Compose
+        run: docker-compose up -d          

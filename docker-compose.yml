@@ -1,0 +1,28 @@
+networks:
+  nginx-proxy:
+    external: true
+
+services:
+  db:
+    image: postgres:16
+    ports:
+      - 15432:5432
+    environment:
+      POSTGRES_DB: mayakenergy
+      POSTGRES_USER: mayakenergy
+      POSTGRES_PASSWORD: mayakenergy
+    volumes:
+      - mayak-online-data:/var/lib/postgresql/data
+
+  app:
+    image: registry.devhub.local/mayak.energy:latest
+    environment:
+      DB_HOST: db
+      DB_BASE: mayakenergy
+      DB_USERNAME: mayakenergy
+      DB_PASSWORD: mayakenergy
+      VIRTUAL_HOST: energy.*
+      VIRTUAL_PORT: 8080
+
+volumes:
+  mayak-online-data:
