@@ -1,5 +1,13 @@
 server:
   port: ${SERVER_PORT:8080}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    env:
+      show-values: always
 logging:
   level:
     '[online.mayak.energy]': ${LOGGING_LEVEL:DEBUG}
@@ -11,14 +19,14 @@ spring:
     name: Маяк.Энергия
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_BASE:mayakenergy}
+    url: jdbc:postgresql://${DB_HOST:devhub.local}:${DB_PORT:15432}/${DB_BASE:mayakenergy}
     username: ${DB_USERNAME:mayakenergy}
     password: ${DB_PASSWORD:mayakenergy}
     hikari:
       maximum-pool-size: ${DB_POOL_SIZE:10}
   docker:
     compose:
-      enabled: true
+      enabled: false
       lifecycle-management: start-and-stop
       profiles:
         active: postgres-12
