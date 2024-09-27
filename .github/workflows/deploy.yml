@@ -33,4 +33,4 @@ jobs:
           tags: registry.devhub.local/mayak-energy:latest
 
       - name: Run docker-compose
-        run: docker-compose up -d
+        run: docker-compose -f docker-compose.yml up -d
