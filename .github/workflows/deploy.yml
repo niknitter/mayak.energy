@@ -31,3 +31,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: registry.devhub.local/mayak-energy:latest
+
+      - name: Run docker-compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: "./docker/docker-compose.yml"
