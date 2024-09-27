@@ -30,4 +30,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: mayak-energy:latest
+          tags: registry.devhub.local/mayak-energy:latest
