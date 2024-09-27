@@ -11,7 +11,7 @@ spring:
     name: Маяк.Энергия
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_POST:15432}/${DB_BASE:mayakenergy}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_POST:5432}/${DB_BASE:mayakenergy}
     username: ${DB_USERNAME:mayakenergy}
     password: ${DB_PASSWORD:mayakenergy}
     hikari:
