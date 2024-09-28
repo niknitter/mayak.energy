@@ -3,6 +3,8 @@ services:
     image: postgres:16
     ports:
       - 15432:5432
+    networks:
+      - default
     environment:
       POSTGRES_DB: mayakenergy
       POSTGRES_USER: mayakenergy
@@ -12,8 +14,9 @@ services:
 
   app:
     image: registry.devhub.local/mayak-energy:latest
-    ports:
-      - 8080:8080
+    networks:
+      - default
+      - nginx-proxy
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -23,5 +26,10 @@ services:
       VIRTUAL_HOST: energy.*
       VIRTUAL_PORT: 8080
 
+networks:
+  default:
+  nginx-proxy:
+    external: true
+ 
 volumes:
   mayak-online-data:
